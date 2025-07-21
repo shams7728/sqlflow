@@ -1,0 +1,722 @@
+{
+    "categories": [
+      {
+        "name": "Basic Level (Beginner)",
+        "questions": [
+          {
+            "id": 1,
+            "question": "What is SQL?",
+            "answer": "SQL (Structured Query Language) is a standard programming language used to interact with relational databases. It is used to store, retrieve, update, and delete data. SQL is also used to create and modify database structures such as tables, views, and indexes.",
+            "example": "SELECT * FROM Employees;"
+          },
+          {
+            "id": 2,
+            "question": "What is a Database?",
+            "answer": "A database is an organized collection of data that is stored and managed electronically. It allows users to efficiently store, retrieve, update, and manage data. Databases are used to handle large amounts of information in various applications such as websites, business systems, and applications.",
+            "example": "A customer database in an e-commerce website may store customer details like name, email, contact number, and purchase history."
+          },
+          {
+            "id": 3,
+            "question": "What are the types of SQL commands?",
+            "answer": "SQL commands are categorized into five types based on their functionality:\n1. **DDL (Data Definition Language)** – Defines the structure of the database (e.g., CREATE, ALTER, DROP, TRUNCATE).\n2. **DML (Data Manipulation Language)** – Manages data stored in the database (e.g., SELECT, INSERT, UPDATE, DELETE).\n3. **DCL (Data Control Language)** – Controls access to the data (e.g., GRANT, REVOKE).\n4. **TCL (Transaction Control Language)** – Manages transactions in the database (e.g., COMMIT, ROLLBACK, SAVEPOINT).\n5. **DQL (Data Query Language)** – Retrieves data from the database (e.g., SELECT)."
+          },
+          {
+            "id": 4,
+            "question": "What is Primary Key?",
+            "answer": "A Primary Key is a column or a combination of columns in a table that uniquely identifies each row in that table. It does not allow NULL values and must always contain unique values.",
+            "example": {
+              "table": "Employees",
+              "columns": ["EmployeeID (Primary Key)", "Name", "Age"],
+              "query": "CREATE TABLE Employees (EmployeeID INT PRIMARY KEY, Name VARCHAR(50), Age INT);"
+            }
+          },
+          {
+            "id": 5,
+            "question": "What is Foreign Key?",
+            "answer": "A Foreign Key is a column or combination of columns in one table that refers to the Primary Key in another table. It is used to create a relationship between two tables and enforce referential integrity.",
+            "example": {
+              "tables": [
+                {
+                  "name": "Departments",
+                  "columns": ["DepartmentID (Primary Key)", "DepartmentName"]
+                },
+                {
+                  "name": "Employees",
+                  "columns": ["EmployeeID (Primary Key)", "Name", "DepartmentID (Foreign Key)"]
+                }
+              ],
+              "query": "CREATE TABLE Employees (EmployeeID INT PRIMARY KEY, Name VARCHAR(50), DepartmentID INT, FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID));"
+            }
+          },
+          {
+            "id": 6,
+            "question": "What is UNIQUE Key?",
+            "answer": "A UNIQUE Key is a constraint that ensures all values in a column or combination of columns are distinct across all rows in the table. It prevents duplicate values but allows NULL values (only one NULL value in most databases).",
+            "example": {
+              "table": "Employees",
+              "columns": ["EmployeeID (Primary Key)", "Email (UNIQUE)", "Name"],
+              "query": "CREATE TABLE Employees (EmployeeID INT PRIMARY KEY, Email VARCHAR(100) UNIQUE, Name VARCHAR(50));"
+            }
+          },
+          {
+            "id": 7,
+            "question": "What is the difference between Primary Key and UNIQUE Key?",
+            "answer": {
+              "table": [
+                ["Primary Key", "UNIQUE Key"],
+                ["Uniquely identifies each row in a table", "Ensures all values in the column are unique"],
+                ["Does not allow NULL values", "Allows one NULL value (in most databases)"],
+                ["Only one primary key is allowed per table", "Multiple UNIQUE keys can be defined in a table"],
+                ["Automatically creates a unique clustered index", "Creates a unique non-clustered index"]
+              ]
+            }
+          },
+          {
+            "id": 8,
+            "question": "What is NOT NULL constraint?",
+            "answer": "The NOT NULL constraint ensures that a column cannot have NULL values. It is used to enforce that every row must have a value in that column.",
+            "example": {
+              "table": "Employees",
+              "columns": ["EmployeeID (Primary Key)", "Name (NOT NULL)", "Email"],
+              "query": "CREATE TABLE Employees (EmployeeID INT PRIMARY KEY, Name VARCHAR(50) NOT NULL, Email VARCHAR(100));"
+            }
+          },
+          {
+            "id": 9,
+            "question": "What is Default Constraint?",
+            "answer": "The Default Constraint provides a default value for a column when no value is specified during the insertion of a new record.",
+            "example": {
+              "table": "Employees",
+              "columns": ["EmployeeID (Primary Key)", "Name", "Salary (DEFAULT 5000)"],
+              "query": "CREATE TABLE Employees (EmployeeID INT PRIMARY KEY, Name VARCHAR(50), Salary DECIMAL(10, 2) DEFAULT 5000);"
+            }
+          },
+          {
+            "id": 10,
+            "question": "What is the difference between DELETE, TRUNCATE, and DROP?",
+            "answer": {
+              "table": [
+                ["Command", "Function", "Can Rollback", "Affects Structure", "Speed"],
+                ["DELETE", "Removes specific rows based on a condition using the WHERE clause", "Yes (with COMMIT/ROLLBACK)", "No", "Slow (Row-by-row deletion)"],
+                ["TRUNCATE", "Removes all rows from the table without a condition", "No", "No", "Faster than DELETE"],
+                ["DROP", "Deletes the entire table including data and structure", "No", "Yes (Removes table structure)", "Fastest"]
+              ],
+              "example": {
+                "DELETE": "DELETE FROM Employees WHERE EmployeeID = 101;",
+                "TRUNCATE": "TRUNCATE TABLE Employees;",
+                "DROP": "DROP TABLE Employees;"
+              }
+            }
+          },
+          {
+            "id": 11,
+            "question": "What is the difference between WHERE and HAVING?",
+            "answer": "The WHERE clause filters rows before grouping, while the HAVING clause filters groups after grouping. WHERE is used with SELECT, UPDATE, and DELETE statements, whereas HAVING is used with SELECT statements that include a GROUP BY clause.",
+            "example": "SELECT Name, Salary FROM Employees WHERE Salary > 50000;\nSELECT Department, AVG(Salary) AS AvgSalary FROM Employees GROUP BY Department HAVING AVG(Salary) > 60000;"
+          },
+          {
+            "id": 12,
+            "question": "What are Joins in SQL?",
+            "answer": "Joins in SQL are used to combine data from two or more tables based on a related column between them. The main types of joins are INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN, SELF JOIN, and CROSS JOIN.",
+            "example": null
+          },
+          {
+            "id": 13,
+            "question": "What is INNER JOIN?",
+            "answer": "INNER JOIN is used to combine rows from two or more tables based on a matching condition between them. It returns only those records where the specified condition is true in both tables.",
+            "example": "SELECT Employees.Name, Departments.DepartmentName FROM Employees INNER JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;"
+          },
+          {
+            "id": 14,
+            "question": "What is LEFT JOIN?",
+            "answer": "LEFT JOIN is used to return all records from the left table and the matching records from the right table. If no match is found, the result will contain NULL values from the right table.",
+            "example": "SELECT Employees.Name, Departments.DepartmentName FROM Employees LEFT JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;"
+          },
+          {
+            "id": 15,
+            "question": "What is RIGHT JOIN?",
+            "answer": "RIGHT JOIN is used to return all records from the right table and the matching records from the left table. If no match is found, the result will contain NULL values from the left table.",
+            "example": "SELECT Employees.Name, Departments.DepartmentName FROM Employees RIGHT JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;"
+          },
+          {
+            "id": 16,
+            "question": "What is FULL JOIN?",
+            "answer": "FULL JOIN combines the results of both LEFT JOIN and RIGHT JOIN. It returns all records from both tables, with matching rows from both sides where available. If there is no match, the result will contain NULL values on the side where no match was found.",
+            "example": "SELECT Employees.Name, Departments.DepartmentName FROM Employees FULL JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;"
+          },
+          {
+            "id": 17,
+            "question": "What is Self Join?",
+            "answer": "Self Join is a type of join where a table is joined with itself to compare rows within the same table. It is used when a table contains a hierarchical relationship or when comparing values in the same table.",
+            "example": "SELECT E1.EmployeeName AS Employee, E2.EmployeeName AS Manager FROM Employees E1 JOIN Employees E2 ON E1.ManagerID = E2.EmployeeID;"
+          },
+          {
+            "id": 18,
+            "question": "What is Cross Join?",
+            "answer": "Cross Join returns the Cartesian product of two tables, meaning it combines every row from the first table with every row from the second table. It does not require any condition.",
+            "example": "SELECT Employees.Name, Departments.DepartmentName FROM Employees CROSS JOIN Departments;"
+          },
+          {
+            "id": 19,
+            "question": "What is Union and Union All?",
+            "answer": "UNION and UNION ALL are used to combine the result sets of two or more SELECT statements. UNION removes duplicate rows, while UNION ALL includes all rows, including duplicates.",
+            "example": "SELECT Name FROM Employees UNION SELECT Name FROM Managers;"
+          },
+          {
+            "id": 20,
+            "question": "What is the difference between UNION and UNION ALL?",
+            "answer": "UNION removes duplicate rows and is slower, while UNION ALL includes all duplicate rows and is faster. UNION also sorts the result set by default, whereas UNION ALL does not.",
+            "example": "SELECT Name FROM Employees UNION ALL SELECT Name FROM Managers;"
+          },
+          {
+            "id": 21,
+            "question": "What is Normalization?",
+            "answer": "Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity. It involves dividing large tables into smaller related tables and defining relationships between them.",
+            "example": null
+          },
+          {
+            "id": 22,
+            "question": "What is Denormalization?",
+            "answer": "Denormalization is the process of combining tables or adding redundant data into a database to improve read performance at the cost of data redundancy. It is the opposite of Normalization.",
+            "example": null
+          },
+          {
+            "id": 23,
+            "question": "What is the difference between CHAR and VARCHAR?",
+            "answer": "CHAR is a fixed-length data type, while VARCHAR is a variable-length data type. CHAR always uses the specified length for storage, while VARCHAR uses only the space required for the actual data.",
+            "example": "CREATE TABLE Employees (EmpID INT, Name CHAR(10), Address VARCHAR(50));"
+          },
+          {
+            "id": 24,
+            "question": "What is the difference between SQL and MySQL?",
+            "answer": "SQL (Structured Query Language) is the language used to manage and manipulate databases. MySQL is a specific Relational Database Management System (RDBMS) that uses SQL.",
+            "example": "SQL: SELECT * FROM Employees; MySQL is the database system that executes this query."
+          },
+          {
+            "id": 25,
+            "question": "What is Auto Increment in SQL?",
+            "answer": "Auto Increment is a property in SQL that automatically generates a unique sequential number whenever a new row is inserted into a table. It is typically used to create unique identifiers like primary keys.",
+            "example": "CREATE TABLE Employees (EmployeeID INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(50), Salary DECIMAL(10, 2));"
+          }
+        ]
+      },
+      {
+        "name": "Intermediate Level",
+        "questions": [
+          {
+            "id": 26,
+            "question": "What is Subquery?",
+            "answer": "A Subquery is a query nested inside another query in SQL. It is used to fetch data that will be used by the main query as a condition to filter or manipulate the result.",
+            "example": "SELECT name, salary FROM employees WHERE salary = (SELECT MAX(salary) FROM employees);"
+          },
+          {
+            "id": 27,
+            "question": "What is Nested Query?",
+            "answer": "A Nested Query is a query written inside another query to retrieve data based on the result of the inner query. It helps break down complex queries into smaller, more manageable parts.",
+            "example": "SELECT name FROM employees WHERE department_id = (SELECT department_id FROM departments WHERE department_name = 'Sales');"
+          },
+          {
+            "id": 28,
+            "question": "What is Correlated Subquery?",
+            "answer": "A Correlated Subquery is a subquery that depends on the values from the outer query to execute. It is executed repeatedly for each row of the outer query, making it slower compared to regular subqueries.",
+            "example": "SELECT e.name, e.salary FROM employees e WHERE e.salary > (SELECT AVG(salary) FROM employees WHERE department_id = e.department_id);"
+          },
+          {
+            "id": 29,
+            "question": "What is Group By in SQL?",
+            "answer": "The GROUP BY clause in SQL is used to group rows that have the same values into summary rows. It is typically used with aggregate functions to perform calculations on each group of data.",
+            "example": "SELECT category, SUM(sales_amount) AS Total_Sales FROM sales GROUP BY category;"
+          },
+          {
+            "id": 30,
+            "question": "What is the difference between Group By and Order By?",
+            "answer": {
+              "table": [
+                ["GROUP BY", "ORDER BY"],
+                ["Used to group rows based on the same values in one or more columns.", "Used to sort the result set in ascending or descending order."],
+                ["Always works with aggregate functions like COUNT(), SUM(), AVG(), etc.", "Does not require aggregate functions."],
+                ["Groups the result into summary rows.", "Sorts the entire result set."]
+              ],
+              "example": {
+                "GROUP BY": "SELECT category, SUM(sales_amount) AS Total_Sales FROM sales GROUP BY category;",
+                "ORDER BY": "SELECT product_name, price FROM products ORDER BY price DESC;"
+              }
+            }
+          },
+          {
+            "id": 31,
+            "question": "What is the use of LIMIT in SQL?",
+            "answer": "LIMIT is used to restrict the number of rows returned by a query. It is commonly used for fetching Top-N records or for pagination.",
+            "example": "SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;"
+          },
+          {
+            "id": 32,
+            "question": "How to find the Second Highest Salary in SQL?",
+            "answer": "You can find the second highest salary using a subquery. The inner query gets the highest salary, and the outer query finds the highest salary that is less than the top salary.",
+            "example": "SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);"
+          },
+          {
+            "id": 33,
+            "question": "How to find Duplicate Records in a table?",
+            "answer": "You can find duplicate records using the GROUP BY clause with the HAVING keyword. Group by the column you want to check for duplicates and use HAVING COUNT(*) > 1 to filter for duplicates.",
+            "example": "SELECT column_name, COUNT(*) FROM table_name GROUP BY column_name HAVING COUNT(*) > 1;"
+          },
+          {
+            "id": 34,
+            "question": "What is CTE (Common Table Expression)?",
+            "answer": "A CTE (Common Table Expression) is a temporary result set that is defined within the execution of a single SQL statement. It helps to simplify complex queries and improve readability.",
+            "example": "WITH IT_Employees AS (SELECT name, department, salary FROM employees WHERE department = 'IT') SELECT name, salary FROM IT_Employees WHERE salary > 50000;"
+          },
+          {
+            "id": 35,
+            "question": "What is Temporary Table in SQL?",
+            "answer": "A Temporary Table in SQL is used to store temporary data during a session. It is automatically deleted when the session ends and is used to store intermediate results.",
+            "example": "CREATE TEMPORARY TABLE temp_emp AS SELECT name, salary FROM employees WHERE salary > 50000;"
+          },
+          {
+            "id": 36,
+            "question": "What is Window Function in SQL?",
+            "answer": "A Window Function performs calculations across a set of table rows related to the current row without collapsing the result into a single value. It works with the OVER() clause and is used for ranking, running totals, and moving averages.",
+            "example": "SELECT ROW_NUMBER() OVER (PARTITION BY column_name ORDER BY column_name) FROM table_name;"
+          },
+          {
+            "id": 37,
+            "question": "What is the difference between ROW_NUMBER(), RANK(), and DENSE_RANK()?",
+            "answer": "ROW_NUMBER() assigns a unique sequential number to each row. RANK() assigns a rank with gaps for ties. DENSE_RANK() assigns a rank without gaps for ties.",
+            "example": null
+          },
+          {
+            "id": 38,
+            "question": "What is CASE Statement in SQL?",
+            "answer": "The CASE Statement is used to apply conditional logic in SQL queries, similar to IF-ELSE statements.",
+            "example": "SELECT name, salary, CASE WHEN salary > 80000 THEN 'High Salary' WHEN salary BETWEEN 50000 AND 80000 THEN 'Medium Salary' ELSE 'Low Salary' END AS Salary_Category FROM employees;"
+          },
+          {
+            "id": 39,
+            "question": "What is COALESCE in SQL?",
+            "answer": "COALESCE returns the first non-null value from a list of expressions. It is used to handle NULL values.",
+            "example": "SELECT name, COALESCE(email, phone, 'Not Available') AS Contact_Info FROM students;"
+          },
+          {
+            "id": 40,
+            "question": "What is NVL Function in SQL?",
+            "answer": "The NVL function replaces NULL values with a specified value. It is specific to Oracle.",
+            "example": "SELECT name, NVL(email, 'Not Available') AS Email FROM students;"
+          },
+          {
+            "id": 41,
+            "question": "What is Indexing in SQL?",
+            "answer": "Indexing improves the speed of data retrieval from a table by creating a lookup structure. It speeds up SELECT queries but can slow down INSERT, UPDATE, and DELETE operations.",
+            "example": "CREATE INDEX idx_name ON students(name);"
+          },
+          {
+            "id": 42,
+            "question": "What is Clustered Index?",
+            "answer": "A Clustered Index sorts and stores the data physically in the table based on the indexed column. Only one clustered index is allowed per table.",
+            "example": "CREATE CLUSTERED INDEX idx_name ON students(id);"
+          },
+          {
+            "id": 43,
+            "question": "What is Non-Clustered Index?",
+            "answer": "A Non-Clustered Index creates a separate structure from the table data, storing pointers to the actual rows. Multiple non-clustered indexes can be created on a table.",
+            "example": "CREATE INDEX idx_name ON students(name);"
+          },
+          {
+            "id": 44,
+            "question": "What is the difference between Clustered and Non-Clustered Index?",
+            "answer": "A Clustered Index stores data physically sorted and only one is allowed per table. A Non-Clustered Index stores pointers to data, and multiple indexes are allowed.",
+            "example": null
+          },
+          {
+            "id": 45,
+            "question": "What is View in SQL?",
+            "answer": "A View is a virtual table based on the result of a SQL query. It does not store data physically but simplifies complex queries and provides data security.",
+            "example": "CREATE VIEW high_salary AS SELECT name, salary FROM employees WHERE salary > 80000;"
+          },
+          {
+            "id": 46,
+            "question": "What is the difference between View and Table?",
+            "answer": "A View is a virtual table that does not store data physically, while a Table is a physical table that stores data. Views are based on SQL queries and automatically update when the base table data changes.",
+            "example": null
+          },
+          {
+            "id": 47,
+            "question": "What is Stored Procedure?",
+            "answer": "A Stored Procedure is a group of predefined SQL statements stored in the database that can be executed multiple times. It improves code reusability and performance.",
+            "example": "CREATE PROCEDURE GetEmployees AS BEGIN SELECT * FROM employees; END;"
+          },
+          {
+            "id": 48,
+            "question": "What is the difference between Function and Stored Procedure?",
+            "answer": "A Function must return a value, while a Stored Procedure may or may not. Functions can be used in SELECT statements, but Stored Procedures cannot. Stored Procedures can modify the database state, while functions are generally used for calculations.",
+            "example": null
+          },
+          {
+            "id": 49,
+            "question": "What is Trigger in SQL?",
+            "answer": "A Trigger is an automatic action executed when a specified event (INSERT, UPDATE, or DELETE) occurs in a table. It is used for data validation, logging, and maintaining data integrity.",
+            "example": "CREATE TRIGGER after_insert AFTER INSERT ON employees FOR EACH ROW BEGIN INSERT INTO logs(message) VALUES('New employee added'); END;"
+          },
+          {
+            "id": 50,
+            "question": "What is Cursor in SQL?",
+            "answer": "A Cursor is a database object used to retrieve, manipulate, and navigate row-by-row through the result set. It is slower than set-based operations and is not recommended for large datasets.",
+            "example": "DECLARE emp_cursor CURSOR FOR SELECT name FROM employees; OPEN emp_cursor; FETCH NEXT FROM emp_cursor; CLOSE emp_cursor; DEALLOCATE emp_cursor;"
+          }
+        ]
+      },
+      {
+        "name": "Advanced Level",
+        "questions": [
+          {
+            "id": 51,
+            "question": "What is the ACID Property in SQL?",
+            "answer": {
+              "table": [
+                ["Property", "Description"],
+                ["A - Atomicity", "Transaction should be all or nothing. If one part of the transaction fails, the entire transaction fails, and the database remains unchanged."],
+                ["C - Consistency", "The database must be in a consistent state before and after the transaction. It ensures that data remains correct and valid."],
+                ["I - Isolation", "Transactions should be executed independently, without interfering with each other."],
+                ["D - Durability", "Once a transaction is committed, the changes must be permanent in the database, even if the system crashes."]
+              ],
+              "example": "BEGIN TRANSACTION;\nUPDATE Accounts SET Balance = Balance - 100 WHERE AccountNo = 'A';\nUPDATE Accounts SET Balance = Balance + 100 WHERE AccountNo = 'B';\nCOMMIT;"
+            }
+          },
+          {
+            "id": 52,
+            "question": "What is a Transaction in SQL?",
+            "answer": "A Transaction in SQL is a group of SQL operations that are executed as a single unit to perform a specific task on the database. It follows ACID Properties to maintain data integrity.",
+            "example": "BEGIN TRANSACTION;\nUPDATE Employees SET Salary = Salary + 5000 WHERE ID = 101;\nDELETE FROM Employees WHERE ID = 102;\nCOMMIT;"
+          },
+          {
+            "id": 53,
+            "question": "What is the difference between COMMIT and ROLLBACK?",
+            "answer": {
+              "table": [
+                ["COMMIT", "ROLLBACK"],
+                ["Saves the changes made by the transaction permanently into the database.", "Undo all changes made by the transaction."],
+                ["Once executed, changes cannot be undone.", "Restores the database to its previous state."],
+                ["Used when all operations are successful.", "Used when any error occurs during the transaction."]
+              ],
+              "example": "BEGIN TRANSACTION;\nUPDATE Employees SET Salary = 6000 WHERE ID = 101;\nCOMMIT; -- If no error occurs\nROLLBACK; -- If error occurs"
+            }
+          },
+          {
+            "id": 54,
+            "question": "What is Savepoint in SQL?",
+            "answer": "Savepoint in SQL is used to temporarily save a transaction at a specific point, allowing you to rollback only part of the transaction without affecting the entire transaction.",
+            "example": "BEGIN TRANSACTION;\nUPDATE Employees SET Salary = 5000 WHERE ID = 101;\nSAVEPOINT SP1;\nUPDATE Employees SET Salary = 7000 WHERE ID = 102;\nROLLBACK TO SP1;\nCOMMIT;"
+          },
+          {
+            "id": 55,
+            "question": "What is the difference between IN and EXISTS?",
+            "answer": {
+              "table": [
+                ["IN", "EXISTS"],
+                ["Compares values from the main query with a list of values.", "Checks if subquery returns any rows."],
+                ["Works with static values or subqueries.", "Only works with subqueries."],
+                ["Slower with large datasets.", "Faster for large datasets."]
+              ]
+            }
+          },
+          {
+            "id": 56,
+            "question": "What is the difference between DELETE and TRUNCATE?",
+            "answer": "DELETE removes specific rows based on a WHERE clause and can be rolled back. TRUNCATE removes all rows from a table, cannot be rolled back, and is faster as it doesn't log individual row deletions.",
+            "example": null
+          },
+          {
+            "id": 57,
+            "question": "What is Index Fragmentation?",
+            "answer": "Index Fragmentation occurs when the logical order of index pages in the database does not match the physical order of data on disk, making data retrieval slower. It can be internal (unused space in pages) or external (pages stored non-sequentially).",
+            "example": null
+          },
+          {
+            "id": 58,
+            "question": "What is the difference between RANK() and DENSE_RANK()?",
+            "answer": "RANK() assigns a unique rank to each row but skips the next rank if there are duplicate values (e.g., 1, 2, 2, 4). DENSE_RANK() assigns a unique rank without skipping ranks for duplicates (e.g., 1, 2, 2, 3).",
+            "example": null
+          },
+          {
+            "id": 59,
+            "question": "How to fetch common records from two tables?",
+            "answer": "To fetch common records from two tables, you can use the INNER JOIN clause based on a common column.",
+            "example": "SELECT table1.column, table2.column FROM table1 INNER JOIN table2 ON table1.common_column = table2.common_column;"
+          },
+          {
+            "id": 60,
+            "question": "What is the difference between UNION and JOIN?",
+            "answer": "UNION combines result sets vertically (rows) from two or more tables, while JOIN combines result sets horizontally (columns) based on common columns.",
+            "example": null
+          },
+          {
+            "id": 61,
+            "question": "What is Pivot Table in SQL?",
+            "answer": "A Pivot Table in SQL is used to transform row data into column data to provide a summary report of the dataset. It is commonly used to perform data aggregation and present data in a more readable format.",
+            "example": "SELECT Product, SUM(CASE WHEN Month = 'Jan' THEN Sales ELSE 0 END) AS Jan_Sales, SUM(CASE WHEN Month = 'Feb' THEN Sales ELSE 0 END) AS Feb_Sales FROM Sales GROUP BY Product;"
+          },
+          {
+            "id": 62,
+            "question": "What is Case Sensitivity in SQL?",
+            "answer": "Case Sensitivity in SQL refers to whether the database treats uppercase and lowercase letters as different or the same when performing queries. This can vary by database and configuration.",
+            "example": "In MySQL, by default, string comparisons are case-insensitive. 'vinay' and 'VINAY' would match."
+          },
+          {
+            "id": 63,
+            "question": "How to find the Nth Highest Salary?",
+            "answer": "To find the Nth Highest Salary in SQL, you can use methods like LIMIT with OFFSET (in MySQL) or a subquery with ORDER BY.",
+            "example": "SELECT DISTINCT Salary FROM Employees ORDER BY Salary DESC LIMIT 1 OFFSET 2; -- Finds the 3rd highest salary in MySQL"
+          },
+          {
+            "id": 64,
+            "question": "How to get First 3 Maximum Salaries?",
+            "answer": "To fetch the first 3 maximum salaries from a table, you can use the DISTINCT, ORDER BY, and LIMIT clauses.",
+            "example": "SELECT DISTINCT Salary FROM Employees ORDER BY Salary DESC LIMIT 3;"
+          },
+          {
+            "id": 65,
+            "question": "What is the difference between Drop, Delete, and Truncate?",
+            "answer": "DROP deletes the entire table with its structure. DELETE removes specific rows based on a condition. TRUNCATE removes all rows from the table quickly without rollback capability.",
+            "example": null
+          },
+          {
+            "id": 66,
+            "question": "How to calculate Age from Date of Birth in SQL?",
+            "answer": "You can calculate the age from the date of birth using functions like DATEDIFF() or by subtracting the birth year from the current year, depending on the database.",
+            "example": "SELECT Name, FLOOR(DATEDIFF(CURDATE(), DOB) / 365) AS Age FROM Employees; -- MySQL example"
+          },
+          {
+            "id": 67,
+            "question": "What is Recursive Query in SQL?",
+            "answer": "A Recursive Query in SQL is a query that refers to itself to perform repetitive operations until a specific condition is met. It is commonly used to process hierarchical data, often with a Common Table Expression (CTE).",
+            "example": "WITH RECURSIVE EmployeeCTE AS (SELECT EmpID, Name, ManagerID FROM Employees WHERE ManagerID IS NULL UNION ALL SELECT E.EmpID, E.Name, E.ManagerID FROM Employees E INNER JOIN EmployeeCTE C ON E.ManagerID = C.EmpID) SELECT * FROM EmployeeCTE;"
+          },
+          {
+            "id": 68,
+            "question": "What is the difference between Temporary Table and CTE?",
+            "answer": "A Temporary Table stores data physically in temporary memory and can be used multiple times within a session. A CTE (Common Table Expression) stores data logically without physical storage and disappears after the query execution.",
+            "example": null
+          },
+          {
+            "id": 69,
+            "question": "How to find Odd and Even records in SQL?",
+            "answer": "You can find odd and even records in SQL using the MOD() function or the ROW_NUMBER() window function to check the remainder of a row identifier when divided by 2.",
+            "example": "SELECT * FROM Employees WHERE MOD(EmpID, 2) = 0; -- Fetches even records in MySQL"
+          },
+          {
+            "id": 70,
+            "question": "What is JSON in SQL?",
+            "answer": "JSON (JavaScript Object Notation) in SQL is used to store, retrieve, and manipulate data in a structured, text-based format within relational databases. It's useful for semi-structured data.",
+            "example": "SELECT Name, Details->>'$.City' AS City FROM Employees;"
+          },
+          {
+            "id": 71,
+            "question": "What is XML in SQL?",
+            "answer": "XML (Extensible Markup Language) in SQL is used to store, retrieve, and manipulate structured data in a text-based, hierarchical format within relational databases. It's often used for data exchange.",
+            "example": null
+          },
+          {
+            "id": 72,
+            "question": "How to handle NULL values in SQL?",
+            "answer": "NULL values can be handled using operators like IS NULL and IS NOT NULL, or functions like COALESCE() and IFNULL() to replace NULLs with a default value.",
+            "example": "SELECT COALESCE(Email, 'N/A') FROM Customers;"
+          },
+          {
+            "id": 73,
+            "question": "What is Dynamic SQL?",
+            "answer": "Dynamic SQL is a method of constructing and executing SQL statements at runtime instead of writing static queries. It allows for flexible query creation but must be handled carefully to prevent SQL injection.",
+            "example": null
+          },
+          {
+            "id": 74,
+            "question": "How to calculate Percentage in SQL?",
+            "answer": "You can calculate a percentage in SQL using arithmetic expressions and aggregate functions, often involving a subquery or window function to get the total count.",
+            "example": "SELECT Department, (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM Employees)) AS Percentage FROM Employees GROUP BY Department;"
+          },
+          {
+            "id": 75,
+            "question": "How to find the Employees who earn more than their Manager?",
+            "answer": "To find employees who earn more than their manager, you need to join the Employee table with itself (a Self Join), matching the employee's manager ID with the manager's employee ID and comparing their salaries.",
+            "example": "SELECT e.Name AS Employee, e.Salary, m.Name AS Manager, m.Salary FROM Employees e JOIN Employees m ON e.ManagerID = m.EmpID WHERE e.Salary > m.Salary;"
+          }
+        ]
+      },
+      {
+        "name": "Real-Time Scenarios",
+        "questions": [
+          {
+            "id": 76,
+            "question": "How to find Duplicate Emails in the Employee Table?",
+            "answer": "To find duplicate emails in SQL, you can use the GROUP BY clause on the email column with a HAVING condition to filter for counts greater than 1.",
+            "example": "SELECT Email, COUNT(Email) AS DuplicateCount FROM Employees GROUP BY Email HAVING COUNT(Email) > 1;"
+          },
+          {
+            "id": 77,
+            "question": "How to get the Highest Salary in each Department?",
+            "answer": "You can find the Highest Salary in Each Department using the GROUP BY clause with the MAX() aggregate function.",
+            "example": "SELECT Department, MAX(Salary) AS HighestSalary FROM Employees GROUP BY Department;"
+          },
+          {
+            "id": 78,
+            "question": "How to find Employees joined in the last 3 months?",
+            "answer": "To find employees who joined in the last 3 months, you can use date functions like DATEDIFF() or DATE_ADD() in the WHERE clause to compare the join date with the current date.",
+            "example": "SELECT Name, JoiningDate FROM Employees WHERE JoiningDate >= DATE_ADD(CURDATE(), INTERVAL -3 MONTH);"
+          },
+          {
+            "id": 79,
+            "question": "How to Display the First 5 Records in SQL?",
+            "answer": "You can display the First 5 Records using the LIMIT or TOP clause depending on the database.",
+            "example": {
+              "MySQL": "SELECT * FROM Employees LIMIT 5;",
+              "SQL Server": "SELECT TOP 5 * FROM Employees;"
+            }
+          },
+          {
+            "id": 80,
+            "question": "How to find the Number of Employees in each Department?",
+            "answer": "You can find the Number of Employees in each department using the COUNT() function with the GROUP BY clause.",
+            "example": "SELECT Department, COUNT(EmpID) AS EmployeeCount FROM Employees GROUP BY Department;"
+          },
+          {
+            "id": 81,
+            "question": "How to find the Last 3 Records in SQL?",
+            "answer": "To fetch the last 3 records in SQL, you can use the ORDER BY clause in descending order on a primary key or date column, along with LIMIT.",
+            "example": "SELECT * FROM Employees ORDER BY EmployeeID DESC LIMIT 3;"
+          },
+          {
+            "id": 82,
+            "question": "How to find Employees without Managers?",
+            "answer": "To find employees without managers, you need to filter for records where the ManagerID column is NULL.",
+            "example": "SELECT * FROM Employees WHERE ManagerID IS NULL;"
+          },
+          {
+            "id": 83,
+            "question": "How to find the First Name starting with 'A'?",
+            "answer": "You can find names starting with the letter 'A' using the LIKE operator with a wildcard character (%).",
+            "example": "SELECT * FROM Employees WHERE FirstName LIKE 'A%';"
+          },
+          {
+            "id": 84,
+            "question": "How to fetch Alternate Rows from a table?",
+            "answer": "You can fetch alternate rows using the MOD() function or the ROW_NUMBER() window function to filter for odd or even row numbers.",
+            "example": "WITH NumberedRows AS (SELECT *, ROW_NUMBER() OVER (ORDER BY EmployeeID) as rn FROM Employees) SELECT * FROM NumberedRows WHERE rn % 2 = 1; -- Fetches odd rows"
+          },
+          {
+            "id": 85,
+            "question": "How to swap two columns in SQL?",
+            "answer": "You can swap the values of two columns using the UPDATE statement, often with a temporary variable in procedural SQL or by simply setting the columns to each other's values in a single statement.",
+            "example": "UPDATE TableName SET Column1 = Column2, Column2 = Column1;"
+          },
+          {
+            "id": 86,
+            "question": "How to display the Duplicate Records with their Count?",
+            "answer": "To display duplicate records along with their occurrence count, use the GROUP BY clause with the HAVING clause, selecting the column and its count.",
+            "example": "SELECT ColumnName, COUNT(*) FROM TableName GROUP BY ColumnName HAVING COUNT(*) > 1;"
+          },
+          {
+            "id": 87,
+            "question": "How to find the Highest Salary without using MAX()?",
+            "answer": "You can find the highest salary without using MAX() by using ORDER BY in descending order and limiting the result to 1.",
+            "example": "SELECT Salary FROM Employees ORDER BY Salary DESC LIMIT 1;"
+          },
+          {
+            "id": 88,
+            "question": "How to fetch common records from two tables without JOIN?",
+            "answer": "You can fetch common records from two tables without using JOIN by using the IN operator with a subquery or the INTERSECT operator.",
+            "example": "SELECT * FROM Table1 WHERE ID IN (SELECT ID FROM Table2);"
+          },
+          {
+            "id": 89,
+            "question": "How to delete Duplicate Records from a table?",
+            "answer": "You can delete duplicate records using methods like a CTE with ROW_NUMBER() to identify and delete duplicates, or by using GROUP BY with MIN() on the primary key.",
+            "example": "WITH CTE AS (SELECT *, ROW_NUMBER() OVER (PARTITION BY DuplicateColumn ORDER BY (SELECT NULL)) as rn FROM TableName) DELETE FROM CTE WHERE rn > 1;"
+          },
+          {
+            "id": 90,
+            "question": "How to find the Department with the highest Employee Count?",
+            "answer": "You can find the department with the highest employee count by using GROUP BY, ORDER BY on the count in descending order, and LIMIT 1.",
+            "example": "SELECT Department, COUNT(*) AS EmployeeCount FROM Employees GROUP BY Department ORDER BY EmployeeCount DESC LIMIT 1;"
+          }
+        ]
+      },
+      {
+        "name": "Optimization Techniques",
+        "questions": [
+          {
+            "id": 91,
+            "question": "How to Optimize SQL Queries?",
+            "answer": "Optimizing SQL queries improves performance and execution speed while handling large datasets. Best practices include using indexes, avoiding SELECT *, using efficient joins, and analyzing execution plans.",
+            "example": {
+              "index": "CREATE INDEX idx_name ON Employees(Name);",
+              "select": "SELECT Name, Salary FROM Employees;",
+              "explain": "EXPLAIN SELECT * FROM Employees;"
+            }
+          },
+          {
+            "id": 92,
+            "question": "What is Query Execution Plan?",
+            "answer": "A Query Execution Plan is a detailed roadmap used by the database engine to execute SQL queries efficiently. It shows how the database will retrieve data and helps analyze performance.",
+            "example": {
+              "MySQL": "EXPLAIN SELECT Name, Salary FROM Employees WHERE Department = 'IT';",
+              "SQL Server": "SET SHOWPLAN_ALL ON;\nSELECT Name, Salary FROM Employees WHERE Department = 'IT';\nSET SHOWPLAN_ALL OFF;"
+            }
+          },
+          {
+            "id": 93,
+            "question": "How to Improve Query Performance?",
+            "answer": "Improving Query Performance ensures faster data retrieval and better database efficiency. Techniques include using indexes, limiting results, avoiding functions in WHERE clauses, and partitioning large tables.",
+            "example": {
+              "limit": "SELECT Name FROM Employees LIMIT 10;",
+              "exists": "SELECT Name FROM Employees WHERE EXISTS (SELECT 1 FROM Managers WHERE Employees.EmpID = Managers.EmpID);"
+            }
+          },
+          {
+            "id": 94,
+            "question": "What is Indexing?",
+            "answer": "Indexing in SQL is a technique used to improve the speed of data retrieval from a database by creating a lookup table for faster access.",
+            "example": "CREATE INDEX idx_name ON Employees(Name);"
+          },
+          {
+            "id": 95,
+            "question": "What is Table Partitioning?",
+            "answer": "Table Partitioning is a technique used to divide large tables into smaller, more manageable pieces without changing the table structure.",
+            "example": {
+              "syntax": "CREATE TABLE Employees (EmpID INT, Name VARCHAR(50), JoiningDate DATE)\nPARTITION BY RANGE (YEAR(JoiningDate)) (\n    PARTITION p1 VALUES LESS THAN (2022),\n    PARTITION p2 VALUES LESS THAN (2023),\n    PARTITION p3 VALUES LESS THAN (2024)\n);",
+              "query": "SELECT * FROM Employees PARTITION (p2);"
+            }
+          },
+          {
+            "id": 96,
+            "question": "How to Avoid Deadlocks in SQL?",
+            "answer": "To avoid deadlocks, access tables in the same order across transactions, keep transactions short, use lower isolation levels if possible, avoid user interaction inside transactions, and use proper indexing.",
+            "example": null
+          },
+          {
+            "id": 97,
+            "question": "What is the use of EXISTS in SQL?",
+            "answer": "EXISTS in SQL is used to check whether a subquery returns any rows. It returns TRUE if the subquery returns at least one row and is often faster than IN for large datasets.",
+            "example": "SELECT * FROM Customers WHERE EXISTS (SELECT 1 FROM Orders WHERE Orders.CustomerID = Customers.CustomerID);"
+          },
+          {
+            "id": 98,
+            "question": "What is Query Optimization?",
+            "answer": "Query Optimization is the process of improving the efficiency and performance of SQL queries to retrieve data faster while using minimal system resources. This is often done automatically by the database's query optimizer.",
+            "example": null
+          },
+          {
+            "id": 99,
+            "question": "What is the Difference Between Stored Procedure and Function in SQL?",
+            "answer": "A stored procedure can return multiple values and perform DML operations, while a function must return a single value (scalar or table) and generally cannot perform DML. Functions can be called within SELECT statements, but stored procedures cannot.",
+            "example": null
+          },
+          {
+            "id": 100,
+            "question": "What is the difference between OLTP and OLAP in SQL?",
+            "answer": "OLTP (Online Transaction Processing) is used for day-to-day transactional operations and focuses on data consistency and speed. OLAP (Online Analytical Processing) is used for data analysis and reporting, focusing on data aggregation and analysis of historical data.",
+            "example": "OLTP: Banking systems, E-commerce websites. OLAP: Data Warehouses, Business Intelligence Tools."
+          }
+        ]
+      }
+    ]
+  }
+  

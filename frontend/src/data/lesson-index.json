@@ -1,0 +1,128 @@
+[
+  {
+    "section": "Getting Started",
+    "topics": [
+      "sql-fundamentals",
+      "sql-syntax",
+      "sql-datatypes",
+      "sql-commands-overview"
+    ]
+  },
+  {
+    "section": "Data Retrieval",
+    "topics": [
+      "select",
+      "select-distinct",
+      "where",
+      "and-or-not",
+      "order-by",
+      "limit-top"
+    ]
+  },
+  {
+    "section": "Functions",
+    "topics": [
+      "sql-functions-overview",
+      "aggregate-functions",
+      "string-functions",
+      "date-functions",
+      "math-functions",
+      "user-defined-functions"
+    ]
+  },
+  {
+    "section": "Grouping",
+    "topics": [
+      "group-by",
+      "having",
+      "group-by-multiple"
+    ]
+  },
+  {
+    "section": "Joins",
+    "topics": [
+      "joins-overview",
+      "inner-join",
+      "left-join",
+      "right-join",
+      "full-join",
+      "self-join",
+      "cross-join"
+    ]
+  },
+  {
+    "section": "Subqueries & Set Ops",
+    "topics": [
+      "subqueries",
+      "exists-any-all",
+      "union-intersect-except"
+    ]
+  },
+  {
+    "section": "Data Definition",
+    "topics": [
+      "create-database",
+      "create-table",
+      "alter-table",
+      "drop-table",
+      "truncate-table",
+      "constraints-overview",
+      "primary-key",
+      "foreign-key",
+      "unique-not-null-constraints",
+      "check-default-constraints",
+      "views",
+      "indexes"
+    ]
+  },
+  {
+    "section": "Data Modification",
+    "topics": [
+      "insert",
+      "update",
+      "delete",
+      "upsert-merge"
+    ]
+  },
+  {
+    "section": "Advanced Querying",
+    "topics": [
+      "stored-procedures",
+      "triggers",
+      "window-functions",
+      "common-table-expressions",
+      "pivot-unpivot",
+      "temp-tables-vs-ctes",
+      "performance-tuning"
+    ]
+  },
+  {
+    "section": "Database Design & Perf",
+    "topics": [
+      "normalization-denormalization",
+      "indexing-strategies",
+      "query-execution-plans",
+      "sql-anti-patterns",
+      "transaction-control"
+    ]
+  },
+  {
+    "section": "Security & Admin",
+    "topics": [
+      "sql-injection-prevention",
+      "user-role-management",
+      "backup-restore",
+      "sql-dialects-overview"
+    ]
+  },
+  {
+    "section": "Challenges",
+    "topics": [
+      "challenge-analytics-basic",
+      "challenge-joins-medium",
+      "challenge-nested-queries",
+      "challenge-data-cleaning",
+      "challenge-ecommerce-dashboard"
+    ]
+  }
+]
