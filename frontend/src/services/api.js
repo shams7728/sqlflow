@@ -1,10 +1,11 @@
 const API_URL = process.env.REACT_APP_API_URL;
+const FORMSPREE_ENDPOINT = process.env.REACT_APP_FORMSPREE_URL; // Use from .env
 
 // --- Helper: Unified response handler ---
 const handleResponse = async (response) => {
     const data = await response.json();
     if (!response.ok) {
-        throw new Error(data.msg || `Request failed with status ${response.status}`);
+        throw new Error(data.message || `Request failed with status ${response.status}`);
     }
     return data;
 };
@@ -109,37 +110,38 @@ export const api = {
         }
     },
 
-    // --- Submit Feedback ---
+    // --- Submit Feedback via Formspree ---
     submitFeedback: async ({ message, email, issueType, name }) => {
         await simulateDelay();
         try {
-          const response = await fetch(`${API_URL}/submit-feedback`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              message,
-              email: email || undefined, // Send undefined instead of empty string
-              issueType,
-              name: name || undefined,
-              pageUrl: window.location.href
-            }),
-          });
-    
-          return await handleResponse(response);
+            const response = await fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name || 'Anonymous User',
+                    email: email || 'no-reply@example.com',
+                    _subject: `SQL-Flow ${issueType} Report`,
+                    message: `Page: ${window.location.href}\n\n${message}`
+                }),
+            });
+
+            if (response.ok) {
+                return { success: true, message: '✅ Thank you! Your feedback has been sent.' };
+            } else {
+                throw new Error('❌ Failed to submit feedback. Please try again later.');
+            }
+
         } catch (error) {
-          console.error('Feedback submission error:', error);
-          
-          // Enhance the error message for common cases
-          let enhancedError = error;
-          if (error.message.includes('Failed to fetch')) {
-            enhancedError = new Error('Network error. Please check your connection.');
-          } else if (error.message.includes('<!DOCTYPE html>')) {
-            enhancedError = new Error('Server error occurred. Please try again later.');
-          }
-          
-          throw enhancedError;
+            console.error('Feedback submission error:', error);
+            let enhancedError = error;
+            if (error.message.includes('Failed to fetch')) {
+                enhancedError = new Error('🌐 Network error. Please check your connection.');
+            } else if (error.message.includes('<!DOCTYPE html>')) {
+                enhancedError = new Error('⚠️ Server error occurred. Please try again later.');
+            }
+            throw enhancedError;
         }
-      }
-    };
+    }
+};

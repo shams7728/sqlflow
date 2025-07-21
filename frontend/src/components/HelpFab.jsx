@@ -22,7 +22,8 @@ const HelpFab = () => {
     email: '',
     message: '',
     issueType: 'bug',
-    pageUrl: window.location.href
+    
+    
   });
   const [status, setStatus] = useState({
     open: false,

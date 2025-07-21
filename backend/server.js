@@ -15,6 +15,8 @@ const { sanitizeQuery } = require('./utils/security');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT;
+
 
 // =================== MIDDLEWARE SETUP ===================
 app.use(helmet());
@@ -113,7 +115,7 @@ app.post('/api/execute', async (req, res) => {
   }
 });
 
-// Submit feedback (rate limited)
+
 app.post('/api/submit-feedback', feedbackLimiter, async (req, res) => {
   try {
     const { name = '', email = '', message, issueType = 'general' } = req.body;
@@ -132,29 +134,32 @@ app.post('/api/submit-feedback', feedbackLimiter, async (req, res) => {
       });
     }
 
-    const response = await fetch('https://api.web3forms.com/submit', {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_KEY,
-        subject: `SQL-Flow ${issueType} Report`,
         name: name || 'Anonymous User',
         email: email || 'no-reply@sqlflow.com',
-        message,
-        page_url: req.headers.referer || 'Direct access',
-        replyto: email || 'no-reply@sqlflow.com',
-        botcheck: false
+        message: `Type: ${issueType}\nPage: ${req.headers.referer || 'Unknown'}\n\n${message}`
       })
     });
 
-    const data = await response.json();
-    res.json(data);
+    if (!response.ok) {
+      const errData = await response.json();
+      return res.status(500).json({
+        success: false,
+        error: errData.error || 'Failed to send message to Formspree'
+      });
+    }
+
+    res.json({ success: true, message: '✅ Feedback sent successfully!' });
 
   } catch (error) {
-    console.error('Feedback submission error:', error);
+    console.error('Formspree error:', error);
     res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
+
 
 // =================== ERROR HANDLING ===================
 app.use((req, res) => {
